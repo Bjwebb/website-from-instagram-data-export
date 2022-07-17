@@ -1,0 +1,12 @@
+{% for post in posts %}
+  {% for media in post.media %}
+    {% if media.uri.endswith(".mp4") %}
+      <video controls>
+        <source src="exported_json/{{ media.uri }}" type="video/mp4">
+      </video>
+    {% else %}
+      <img src="exported_json/{{ media.uri }}" />
+    {% endif %}
+  {% endfor %}
+{{ post.title }}
+{% endfor %}
