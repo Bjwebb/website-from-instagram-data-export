@@ -1,0 +1,5 @@
+{% for post in posts %}
+  <a href="post_{{ post.creation_timestamp }}.html">
+    <img src="{{ post.media.0.thumb_uri }}" />
+  </a>
+{% endfor %}

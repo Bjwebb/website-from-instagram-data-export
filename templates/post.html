@@ -1,0 +1,17 @@
+<style>
+.fullscreen {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+</style>
+{% for media in post.media %}
+  {% if media.uri.endswith(".mp4") %}
+    <video class="fullscreen" controls>
+      <source src="{{ media.uri }}" type="video/mp4">
+    </video>
+  {% else %}
+    <img class="fullscreen" src="{{ media.uri }}" />
+  {% endif %}
+{% endfor %}
+{{ post.title }}

@@ -5,9 +5,7 @@ import subprocess
 
 from jinja2 import Environment, FileSystemLoader
 
-env = Environment(loader=FileSystemLoader("."), autoescape=True)
-
-template = env.get_template("template.html")
+env = Environment(loader=FileSystemLoader("templates"), autoescape=True)
 
 with open("exported_json/content/posts_1.json") as fp:
     posts = json.load(fp)
@@ -33,12 +31,19 @@ for post in posts:
                     "scale=320:320:force_original_aspect_ratio=decrease",
                     "-vframes",
                     "1",
-                    os.path.join(out, media["thumb_uri"]),
+                    os.path.join("out", media["thumb_uri"]),
                 ],
                 check=True,
             )
+    with open(
+        os.path.join("out", f"post_{post['creation_timestamp']}.html"), "w"
+    ) as fp:
+        template = env.get_template("post.html")
+        fp.write(template.render(post=post))
 
 posts.sort(key=lambda post: -post["creation_timestamp"])
 
 with open(os.path.join("out", "index.html"), "w") as fp:
+    template = env.get_template("index.html")
+
     fp.write(template.render(posts=posts))
