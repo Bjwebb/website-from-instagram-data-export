@@ -6,12 +6,12 @@
 }
 </style>
 {% for media in post.media %}
-  {% if media.uri.endswith(".mp4") %}
+  {% if media.uri.endswith(".jpg") or media.uri.endswith(".webp") %}
+    <img class="fullscreen" src="{{ media.uri }}" />
+  {% else %}
     <video class="fullscreen" controls>
       <source src="{{ media.uri }}" type="video/mp4">
     </video>
-  {% else %}
-    <img class="fullscreen" src="{{ media.uri }}" />
   {% endif %}
 {% endfor %}
 {{ post.title }}
